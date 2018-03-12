@@ -25,7 +25,7 @@ cache:
   paths:
   - /root/.cache/pip
 
-release:
+release_master: &release_master
   before_script:
   - pip install twine
   script:
@@ -34,3 +34,13 @@ release:
   - twine upload dist/* -u "$PYPIUSER" -p "$PYPIPW"
   only:
   - master@gitmate/open-source/IGitt
+
+release:
+  <<: *release_master
+  script:
+  - python .ci/adjust_version.py IGitt/VERSION -r -b $CI_COMMIT_REF_NAME
+  - python setup.py sdist bdist_wheel
+  - twine upload dist/* -u "$PYPIUSER" -p "$PYPIPW"
+  - ./.ci/push_tags.sh
+  only:
+  - /^release\/.*$/@gitmate/open-source/IGitt
