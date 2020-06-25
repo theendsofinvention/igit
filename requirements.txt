@@ -1,9 +1,11 @@
 setuptools>=21.0.0
 GitPython~=2.1.8
-requests~=2.19.1
+requests~=2.20
 requests-oauthlib~=1.0.0
 cryptography>=2.1.4,<3
 PyJWT~=1.6.4
 backoff~=1.4.3
 beautifulsoup4~=4.6.0
 pytz~=2018.4
+
+urllib3>=1.24.3 # not directly required, pinned by Snyk to avoid a vulnerability
